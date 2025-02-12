@@ -1,0 +1,21 @@
+{
+    "name": "crims/portal-api",
+    "description": "Shared authentication logic for CRIMS microservices",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Portal\\\\": "laravel/app"
+        }
+    },
+    "require-dev": {
+        "php": "^8.2",
+        "laravel/framework": "^11.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Portal\\\\Auth\\\\UserProvider"
+            ]
+        }
+    }
+}
