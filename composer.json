@@ -4,7 +4,7 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Portal\\\\": "app/"
+            "Portal\\": "app/"
         }
     },
     "require-dev": {
@@ -14,7 +14,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Portal\\\\Auth\\\\UserProvider"
+                "Portal\\Auth\\UserProvider"
             ]
         }
     }
