@@ -1,5 +1,5 @@
 <?php
-namespace App\Models;
+namespace Portal\Models;
 
 class Share
 {

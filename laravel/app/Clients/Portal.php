@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Clients;
+namespace Portal\Clients;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Http;

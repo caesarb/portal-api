@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Auth;
+namespace Portal\Auth;
 
-use App\Clients\Portal;
-use App\Models\User;
-use App\Models\Role;
+use Portal\Clients\Portal;
+use Portal\Models\User;
+use Portal\Models\Role;
 use Illuminate\Contracts\Auth\UserProvider as AuthUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Symfony\Component\HttpKernel\Exception\HttpException;

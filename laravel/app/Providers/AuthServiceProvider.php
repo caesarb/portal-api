@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace Portal\Providers;
 
-use App\Auth\UserProvider;
-use App\Clients\Portal;
+use Portal\Auth\UserProvider;
+use Portal\Clients\Portal;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as IlluminateAuthServiceProvider;
 use Auth;
 
