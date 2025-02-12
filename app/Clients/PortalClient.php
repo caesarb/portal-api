@@ -2,7 +2,7 @@
 
 namespace Portal\Clients;
 
-use App\Models\User;
+use Portal\Models\User;
 
 class PortalClient extends Client
 {
