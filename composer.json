@@ -14,7 +14,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Portal\\Auth\\UserProvider"
+                "Portal\\Providers\\AuthServiceProvider"
             ]
         }
     }
