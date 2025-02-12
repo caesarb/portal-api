@@ -2,18 +2,16 @@
 
 namespace Portal\Auth;
 
-use Portal\Clients\Portal;
+use Portal\Clients\PortalClient;
 use Portal\Models\User;
-use Portal\Models\Role;
 use Illuminate\Contracts\Auth\UserProvider as AuthUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserProvider implements AuthUserProvider {
     
     protected $portal;
 
-    public function __construct(Portal $portal)
+    public function __construct(PortalClient $portal)
     {
         $this->portal = $portal;
     }

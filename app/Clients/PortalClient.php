@@ -3,9 +3,8 @@
 namespace Portal\Clients;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Http;
 
-class Portal extends Client
+class PortalClient extends Client
 {
     protected $client;
 
