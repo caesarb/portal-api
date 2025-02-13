@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Portal\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Support\Facades\Auth;
