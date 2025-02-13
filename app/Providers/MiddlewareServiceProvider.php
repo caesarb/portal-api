@@ -14,13 +14,13 @@ class MiddlewareServiceProvider extends ServiceProvider
         $router = $this->app->make(Router::class);
 
         $router->middlewareGroup('api', [
-            'throttle:api',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class,
             PortalAuthenticate::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
 
         $router->middlewareGroup('external_access', [
-            'throttle:external_access',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             JanitorAuthenticate::class,
         ]);
