@@ -11,6 +11,11 @@ class MiddlewareServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../../config/auth.php',
+            'auth'
+        );
+
         $router = $this->app->make(Router::class);
 
         $router->middlewareGroup('api', [
