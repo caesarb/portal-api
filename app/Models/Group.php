@@ -8,6 +8,6 @@ class Group
 
     public function __construct(string $id)
     {
-        $this->name = $name;
+        $this->id = $id;
     }
 }
