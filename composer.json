@@ -1,6 +1,7 @@
 {
     "name": "crims/portal-api",
-    "description": "Shared authentication logic for CRIMS microservices",
+    "description": "Centralized authentication and middleware library for CRIMS",
+    "version": "1.0.0",
     "type": "library",
     "autoload": {
         "psr-4": {
