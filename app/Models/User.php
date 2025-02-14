@@ -24,7 +24,7 @@ class User extends Authenticatable
 
     //========= ChiefUser Interface ==============
     public function getRole() {
-        return $this->role;
+        return $this->role->name;
     }
     public function isOwner($user_uuid)
 	{
@@ -52,5 +52,5 @@ class User extends Authenticatable
         
         return $u->uuid === $this->uuid;;
     }
-    
+
 }
