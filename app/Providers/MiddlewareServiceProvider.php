@@ -11,10 +11,19 @@ class MiddlewareServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../../config/auth.php',
-            'auth'
-        );
+        $portalAuthConfig = require __DIR__ . '/../../config/auth.php';
+        $existingAuthConfig = config('auth', []);
+
+        config([
+            'auth.guards' => array_merge($existingAuthConfig['guards'] ?? [], $portalAuthConfig['guards']),
+            'auth.providers' => array_merge($existingAuthConfig['providers'] ?? [], $portalAuthConfig['providers']),
+            'auth.defaults' => $portalAuthConfig['defaults'],
+        ]);
+
+        // $this->mergeConfigFrom(
+        //     __DIR__ . '/../../config/auth.php',
+        //     'auth'
+        // );
 
         $router = $this->app->make(Router::class);
 
