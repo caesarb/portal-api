@@ -1,13 +1,12 @@
 <?php
 
 namespace Portal\Models;
+use Illuminate\Database\Eloquent\Model;
 
-class Group
+class Group extends Model
 {
-    public string $id;
+    protected $fillable = [
+        'id', 'name', 'organisation_id'
+    ];
 
-    public function __construct(string $id)
-    {
-        $this->id = $id;
-    }
 }

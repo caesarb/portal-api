@@ -1,13 +1,11 @@
 <?php
 
 namespace Portal\Models;
+use Illuminate\Database\Eloquent\Model;
 
-class Role
+class Role extends Model
 {
-    public string $name;
-
-    public function __construct(string $name)
-    {
-        $this->name = $name;
-    }
+    protected $fillable = [
+        'id', 'name'
+    ];
 }

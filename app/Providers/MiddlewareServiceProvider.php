@@ -20,11 +20,6 @@ class MiddlewareServiceProvider extends ServiceProvider
             'auth.defaults' => $portalAuthConfig['defaults'],
         ]);
 
-        // $this->mergeConfigFrom(
-        //     __DIR__ . '/../../config/auth.php',
-        //     'auth'
-        // );
-
         $router = $this->app->make(Router::class);
 
         $router->middlewareGroup('api', [

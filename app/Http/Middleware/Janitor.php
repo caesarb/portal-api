@@ -17,9 +17,9 @@ class Janitor extends Middleware
             if ($request->hasHeader($key) && $request->header($key) === $value) {
 
                 $syntheticUser = new User([
-                    'username' => $key
+                    'username' => $key,
+                    'role_id' => 2
                 ]);
-                $syntheticUser->role = new Role('Admin');
                 Auth::setUser($syntheticUser);
                 
                 return $next($request);
