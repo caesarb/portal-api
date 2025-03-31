@@ -3,10 +3,15 @@
 namespace Portal\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Portal\Models\Traits\IsReadOnly;
 
 class User extends Authenticatable
 {
+    use IsReadOnly;
+
+    protected $connection = 'portal';
+    protected $table = 'users';
+
     protected $fillable = [
         'id', 'firstname', 'familyname', 'username', 'uuid', 'email', 'telephone', 'orcid', 'email_verified_at', 'role_id', 'group_id', 'shares'
     ];
