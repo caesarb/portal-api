@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Traits;
+namespace Common\Models\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -10,10 +10,10 @@ use App\Utils\Sanitize;
 /**
  * This trait for sure belongs into a utils library rather than in portal-api. 
  * Since it's the only shared library so far, I'll put it here anyway to prevent copying it between our services
- * so I kept the App\Models namespace instead of Portal.
+ * but put the Common namespace instead of Portal.
  * 
  * The goal is to support the Searchable vom CRIMSv4 (without the Authorization part) but empowering it with a
- * generic search, e.g. http://thisurl/projects?samples.name=Test%&tm.date<=24-12-2024 will return all Projects
+ * generic search. A GET http://thisurl/projects?samples.name=Test%&tm.date<=24-12-2024 will return all Projects
  * which have a sample name starting with 'Test' and which thermofluor run date was at or before Christmas '24.
  * The old search takes precedence, so if a Filter class Samples.Name.php exists, it will take the custom logic
  * defined there. 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Portal\Clients;
+namespace Common\Clients;
 
 use Illuminate\Support\Facades\Http;
 

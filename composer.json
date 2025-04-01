@@ -5,7 +5,8 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Portal\\": "app/"
+            "Portal\\": "app/",
+            "Common\\": "app/"
         }
     },
     "require-dev": {

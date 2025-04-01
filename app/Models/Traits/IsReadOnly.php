@@ -1,6 +1,6 @@
 <?php
 
-namespace Portal\Models\Traits;
+namespace Common\Models\Traits;
 
 /** 
  * Since I can't rewrite all microservices to use API instead of directly accessing other ms' DB,
@@ -8,8 +8,6 @@ namespace Portal\Models\Traits;
  */
 trait IsReadOnly 
 {
-    protected $guarded = [];
-
     public function save(array $options = [])
     {
         throw new \Exception("Trying to save a read-only Model.");
