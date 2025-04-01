@@ -3,7 +3,7 @@
 namespace Portal\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Portal\Models\Traits\IsReadOnly;
+use Common\Models\Traits\IsReadOnly;
 
 class User extends Authenticatable
 {
