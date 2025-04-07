@@ -33,5 +33,15 @@ class UserProvider implements AuthUserProvider {
     public function retrieveById($identifier) {}
     public function validateCredentials(Authenticatable $user, array $credentials){}
     public function updateRememberToken(Authenticatable $user, $token){}
-
+    
+    /**
+     * Determine if the user's password needs to be rehashed.
+     *
+     * @param  mixed  $user
+     * @return bool
+     */
+    public function rehashPasswordIfRequired($user): bool
+    {
+        return false;
+    }
 }
