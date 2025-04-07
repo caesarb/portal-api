@@ -40,8 +40,11 @@ class UserProvider implements AuthUserProvider {
      * @param  mixed  $user
      * @return bool
      */
-    public function rehashPasswordIfRequired($user): bool
-    {
+    public function rehashPasswordIfRequired(
+        Authenticatable $user,
+        array $credentials,
+        bool $force = false
+    ): bool {
         return false;
     }
 }
