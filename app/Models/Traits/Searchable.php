@@ -35,7 +35,7 @@ trait Searchable
 
     private static function ApplyFiltersToQuery(Builder $query, $filters)
     {
-        $blackListedFilters = ['page','limit','order','sort','password','janitor_key','api_token'];
+        $blackListedFilters = ['page','limit','order','sort','password','janitor_key','api_token','withTrashed'];
         foreach ($filters as $name => $value) {
             if(!in_array($name, $blackListedFilters)){
                 if (strpos($name, ':') !== false) {
