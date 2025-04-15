@@ -13,10 +13,9 @@ use App\Utils\Sanitize;
  * but put the Common namespace instead of Portal.
  * 
  * The goal is to support the Searchable vom CRIMSv4 (without the Authorization part) but empowering it with a
- * generic search. A GET http://thisurl/projects?samples.name=Test%&tm.date<=24-12-2024 will return all Projects
+ * generic search. A GET http://thisurl/projects?samples:name=Test%&tm:date<=24-12-2024 will return all Projects
  * which have a sample name starting with 'Test' and which thermofluor run date was at or before Christmas '24.
- * The old search takes precedence, so if a Filter class Samples.Name.php exists, it will take the custom logic
- * defined there. 
+ * The 'old' search takes precedence, so if a specific Filter class exists, it'll be executed. 
  */
 trait Searchable
 {
@@ -50,6 +49,12 @@ trait Searchable
             }
         }
 
+        // disable SoftDeletes if 'withTrashed=true' is requested
+        if (isset($filters['withTrashed']) && $filters['withTrashed'] == 'true' && 
+            in_array(\Illuminate\Database\Eloquent\SoftDeletes::class, class_uses_recursive($query->getModel()))) {
+            $query->withTrashed();
+        }
+
         return $query;
     }
 
@@ -76,7 +81,7 @@ trait Searchable
     }
 
     /** Generic way. Allows operators and nested fields, e.g.:
-     * http://thisurl/projects?samples.name=Test%&tm.date<=21-12-2024 
+     * http://thisurl/projects?samples:name=Test%&tm.date<=21-12-2024 
      */
     private static function applyNestedFilter(Builder $query, array $parts, $value)
     {
@@ -91,6 +96,13 @@ trait Searchable
         }
 
         $query->whereHas($relation, function (Builder $q) use ($field, $operator, $value) {
+            
+            // if trashed records are requested, we will also apply it to relations if these models use SoftDeletes 
+            if (request()->has('withTrashed') && request()->get('withTrashed') == 'true' &&
+                in_array(\Illuminate\Database\Eloquent\SoftDeletes::class, class_uses_recursive($q->getModel()))) {
+                $q->withTrashed();
+            }
+            
             $nestedParts = explode(':', $field);
 
             if (count($nestedParts) > 1) {
