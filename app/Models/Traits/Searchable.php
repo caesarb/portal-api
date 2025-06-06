@@ -5,6 +5,7 @@ namespace Common\Models\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 use App\Utils\Sanitize;
 
 /**
@@ -66,7 +67,7 @@ trait Searchable
             $query = $filter::apply($query, $value);
         } 
         // New way to parse operator and like queries from the FE
-        else {
+        else if (Schema::hasColumn($query->getModel()->getTable(), $field)){
             if (strpos($value, '%') !== false) {
                 $query->where($field, 'LIKE', $value);
             }
@@ -77,6 +78,10 @@ trait Searchable
             } else {
                 $query->where($field, $value);
             }
+        }
+        else {
+            \Log::warning("Searchable: Filter '$field' does not exist in model " . get_class($query->getModel()) . 
+                " or is not a valid column. Skipping this filter.");
         }
     }
 
@@ -109,12 +114,15 @@ trait Searchable
                 $innerRelation = array_shift($nestedParts);
                 $innerField = implode(':', $nestedParts);
                 self::applyNestedFilter($q, [$innerRelation, $innerField], "$operator $value");
-            } else {
+            } else if (Schema::hasColumn($q->getModel()->getTable(), $field)) {
                 if (strpos($value, '%') !== false) {
                     $q->where($field, 'LIKE', $value);
                 } else {
                     $q->where($field, $operator, $value);
                 }
+            } else {
+                \Log::warning("Searchable: Filter '$field' does not exist in model " . get_class($q->getModel()) . 
+                    " or is not a valid column. Skipping this filter.");
             }
         });
     }
