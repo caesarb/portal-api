@@ -27,7 +27,20 @@ class UserProvider implements AuthUserProvider {
     }
 
     public function retrieveByCredentials(array $credentials){
-        return $this->retrieveByToken('uuid', request()->header('authorization'));
+        $authHeader = request()->header('authorization');
+        if ($authHeader) {
+            return $this->retrieveByToken('uuid', $authHeader);
+        }
+
+        // ligands and buster frontend work different:
+        // check for api_token and add it as Bearer to the headers
+        if (isset($credentials['api_token'])) {
+            $token = 'Bearer ' . $credentials['api_token'];
+            request()->headers->set('authorization', $token);
+            return $this->retrieveByToken('uuid', $token);
+        }
+
+        return null;
     }
 
     public function retrieveById($identifier) {}
