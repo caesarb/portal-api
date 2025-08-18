@@ -9,4 +9,8 @@ class Group extends Model
         'id', 'name', 'organisation_id'
     ];
 
+    public function organisation() {
+        return $this->belongsTo(Organisation::class);
+    }
+    
 }
