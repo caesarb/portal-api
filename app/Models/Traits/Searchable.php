@@ -69,7 +69,7 @@ trait Searchable
         // New way to parse operator and like queries from the FE
         else if (Schema::hasColumn($query->getModel()->getTable(), $field)){
             if (strpos($value, '%') !== false) {
-                $query->where($field, 'LIKE', $value);
+                $query->whereRaw("$field ILIKE ?", [$value]); // case-insensitive
             }
             else if (preg_match('/^(<=?|>=?|!=|<>|=)\s*(.+)$/', $value, $matches)) {
                 $operator = $matches[1];
@@ -116,7 +116,7 @@ trait Searchable
                 self::applyNestedFilter($q, [$innerRelation, $innerField], "$operator $value");
             } else if (Schema::hasColumn($q->getModel()->getTable(), $field)) {
                 if (strpos($value, '%') !== false) {
-                    $q->where($field, 'LIKE', $value);
+                    $q->whereRaw("$field ILIKE ?", [$value]);
                 } else {
                     $q->where($field, $operator, $value);
                 }
