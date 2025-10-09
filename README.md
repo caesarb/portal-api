@@ -8,7 +8,7 @@ In composer.json add to the require field:
 
 "require": {
   "php": "^8.2",
-  "crims/portal-api": "dev-main"
+  "crims/portal-api": "^1.0"
   ...
 }
 
