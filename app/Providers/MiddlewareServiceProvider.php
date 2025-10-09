@@ -27,9 +27,18 @@ class MiddlewareServiceProvider extends ServiceProvider
             PortalAuthenticate::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
-
+        $router->middlewareGroup('api.high', [
+            \Illuminate\Routing\Middleware\ThrottleRequests::class.'2000,1',
+            PortalAuthenticate::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ]);
         $router->middlewareGroup('external_access', [
             \Illuminate\Routing\Middleware\ThrottleRequests::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            JanitorAuthenticate::class,
+        ]);
+        $router->middlewareGroup('external_access.high', [
+            \Illuminate\Routing\Middleware\ThrottleRequests::class.'2000,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             JanitorAuthenticate::class,
         ]);
