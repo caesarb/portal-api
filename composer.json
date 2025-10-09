@@ -3,6 +3,13 @@
     "description": "Centralized authentication and middleware library for CRIMS",
     "version": "1.0.1",
     "type": "library",
+    "license": "AFL-3.0",
+    "authors": [
+        {
+            "name": "Benny Kaiser",
+            "email": "bkaiser@embl.fr"
+        }
+    ]
     "autoload": {
         "psr-4": {
             "Portal\\": "app/",
