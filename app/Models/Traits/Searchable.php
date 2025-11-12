@@ -64,25 +64,43 @@ trait Searchable
         // Old way: Determine the filter class and apply it
         $filter = '\App\Models\Filters\\' . Str::studly($field);
         if (class_exists($filter)) {
-            $query = $filter::apply($query, $value);
+            return $filter::apply($query, $value);
         } 
         // New way to parse operator and like queries from the FE
-        else if (Schema::hasColumn($query->getModel()->getTable(), $field)){
-            if (strpos($value, '%') !== false) {
-                $query->whereRaw("$field ILIKE ?", [$value]); // case-insensitive
-            }
-            else if (preg_match('/^(<=?|>=?|!=|<>|=)\s*(.+)$/', $value, $matches)) {
-                $operator = $matches[1];
-                $value = $matches[2];
-                $query->where($field, $operator, $value);
-            } else {
-                $query->where($field, $value);
-            }
+        $fieldOperatorPattern = '/(<=?|>=?|!=|<>|=)$/';
+        $operator = null;
+
+        if (preg_match($fieldOperatorPattern, $field, $match)) {
+            $operator = $match[1];
+            $field = preg_replace($fieldOperatorPattern, '', $field);
         }
-        else {
-            \Log::warning("Searchable: Filter '$field' does not exist in model " . get_class($query->getModel()) . 
+
+        // Verify the field actually exists in the table
+        if (!Schema::hasColumn($query->getModel()->getTable(), $field)) {
+            \Log::warning("Searchable: Filter '$field' does not exist in model " . get_class($query->getModel()) .
                 " or is not a valid column. Skipping this filter.");
+            return $query;
         }
+
+        // Handle LIKE
+        if (strpos($value, '%') !== false) {
+            return $query->whereRaw("$field ILIKE ?", [$value]); // case-insensitive match
+        }
+
+        // If no operator in field, check if one is in the value (e.g., ">=2025-11-19")
+        if (!$operator && preg_match('/^(<=?|>=?|!=|<>|=)\s*(.+)$/', $value, $matches)) {
+            $operator = $matches[1];
+            $value = $matches[2];
+        }
+
+        // Apply the filter
+        if ($operator) {
+            $query->where($field, $operator, $value);
+        } else {
+            $query->where($field, $value);
+        }
+
+        return $query;
     }
 
     /** Generic way. Allows operators and nested fields, e.g.:
