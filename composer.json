@@ -1,7 +1,7 @@
 {
     "name": "crims/portal-api",
     "description": "Centralized authentication and middleware library for CRIMS",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "type": "library",
     "license": "AFL-3.0",
     "authors": [
