@@ -9,7 +9,7 @@
             "name": "Benny Kaiser",
             "email": "bkaiser@embl.fr"
         }
-    ]
+    ],
     "autoload": {
         "psr-4": {
             "Portal\\": "app/",
